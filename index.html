@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NoraOS - Experience Tomorrow</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Tahoma', 'Segoe UI', sans-serif;
+            background: linear-gradient(to bottom, #2b5faa 0%, #1e4d8b 50%, #1a4278 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .window {
+            background: #ece9d8;
+            border-radius: 8px 8px 0 0;
+            box-shadow: 0 0 0 1px rgba(0,0,0,0.1), 2px 2px 8px rgba(0,0,0,0.3);
+            max-width: 1000px;
+            margin: 0 auto 20px;
+            overflow: hidden;
+        }
+
+        .title-bar {
+            background: linear-gradient(to bottom, #0997ff 0%, #0053ee 3%, #0050ee 5%, #06f 50%, #06f 95%, #003dd7 100%);
+            padding: 4px 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 8px 8px 0 0;
+        }
+
+        .title-bar-text {
+            color: #fff;
+            font-weight: bold;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .window-icon {
+            width: 16px;
+            height: 16px;
+            background: #fff;
+            border-radius: 2px;
+        }
+
+        .title-bar-controls {
+            display: flex;
+            gap: 2px;
+        }
+
+        .title-bar-controls button {
+            width: 21px;
+            height: 21px;
+            background: linear-gradient(to bottom, #f5f4f2 0%, #d8d6d0 100%);
+            border: 1px solid #003c74;
+            border-radius: 3px;
+            font-size: 11px;
+            cursor: pointer;
+            color: #000;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .title-bar-controls button:hover {
+            background: linear-gradient(to bottom, #ffeeb5 0%, #ffc946 100%);
+        }
+
+        .title-bar-controls button:active {
+            background: #ccc;
+        }
+
+        .window-body {
+            padding: 20px;
+            background: #ece9d8;
+        }
+
+        .hero-section {
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(to bottom, #fff 0%, #f0f0f0 100%);
+            border: 1px solid #ccc;
+            margin-bottom: 20px;
+            border-radius: 4px;
+        }
+
+        .logo-text {
+            font-size: 56px;
+            font-weight: bold;
+            color: #1c4587;
+            text-shadow: 2px 2px 0 #aaa;
+            margin-bottom: 10px;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+
+        .glitch {
+            animation: glitch 4s infinite;
+        }
+
+        @keyframes glitch {
+            0%, 90%, 100% { opacity: 1; transform: translate(0); }
+            92% { opacity: 0.8; transform: translate(-2px, 2px); }
+            94% { opacity: 0.8; transform: translate(2px, -2px); }
+            96% { opacity: 0.8; transform: translate(-1px, -1px); }
+        }
+
+        .tagline {
+            font-size: 18px;
+            color: #555;
+            margin-bottom: 30px;
+        }
+
+        .button {
+            background: linear-gradient(to bottom, #fff 0%, #e0ddd5 100%);
+            border: 1px solid #003c74;
+            border-radius: 3px;
+            padding: 8px 24px;
+            font-family: 'Tahoma', sans-serif;
+            font-size: 11px;
+            cursor: pointer;
+            margin: 5px;
+            display: inline-block;
+            text-decoration: none;
+            color: #000;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .button:hover {
+            background: linear-gradient(to bottom, #ffeeb5 0%, #ffc946 100%);
+        }
+
+        .button:active {
+            background: #ccc;
+            box-shadow: inset 0 1px 2px rgba(0,0,0,0.2);
+        }
+
+        .button-primary {
+            background: linear-gradient(to bottom, #7eb5ff 0%, #0065d6 100%);
+            color: #fff;
+            font-weight: bold;
+        }
+
+        .button-primary:hover {
+            background: linear-gradient(to bottom, #9fcaff 0%, #1a75e6 100%);
+        }
+
+        .section {
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: #1c4587;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #1c4587;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .feature-card {
+            background: linear-gradient(to bottom, #f8f8f8 0%, #e8e8e8 100%);
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .feature-card:hover {
+            border-color: #0066cc;
+            box-shadow: 0 2px 8px rgba(0,102,204,0.3);
+        }
+
+        .feature-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #1c4587 0%, #3d7dc9 100%);
+            border-radius: 4px;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .feature-title {
+            font-weight: bold;
+            color: #000;
+            margin-bottom: 5px;
+        }
+
+        .feature-desc {
+            font-size: 11px;
+            color: #555;
+            line-height: 1.4;
+        }
+
+        .warning-box {
+            background: #fff3cd;
+            border: 2px solid #ff9800;
+            border-radius: 4px;
+            padding: 15px;
+            margin: 20px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .warning-icon {
+            font-size: 24px;
+        }
+
+        .status-bar {
+            background: linear-gradient(to bottom, #f0f0f0 0%, #d8d8d8 100%);
+            border-top: 1px solid #fff;
+            padding: 4px 8px;
+            font-size: 11px;
+            display: flex;
+            justify-content: space-between;
+            color: #000;
+        }
+
+        .hidden-link {
+            opacity: 0.03;
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+
+        .hidden-link:hover {
+            opacity: 0.8;
+        }
+
+        .taskbar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 30px;
+            background: linear-gradient(to bottom, #1f4e9a 0%, #1a4278 100%);
+            border-top: 2px solid #2b5faa;
+            display: flex;
+            align-items: center;
+            padding: 0 5px;
+            box-shadow: 0 -2px 5px rgba(0,0,0,0.3);
+            z-index: 1000;
+        }
+
+        .start-button {
+            background: linear-gradient(to bottom, #3dbb3d 0%, #2d8b2d 100%);
+            border: 1px outset #5cd65c;
+            border-radius: 3px;
+            padding: 2px 12px;
+            color: #fff;
+            font-weight: bold;
+            font-size: 11px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .start-button:hover {
+            background: linear-gradient(to bottom, #4ddb4d 0%, #3dab3d 100%);
+        }
+
+        .start-button:active {
+            border-style: inset;
+        }
+
+        .system-tray {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 11px;
+            color: #fff;
+        }
+
+        .tray-icon {
+            width: 16px;
+            height: 16px;
+            background: #fff;
+            border-radius: 2px;
+            opacity: 0.8;
+        }
+
+        .clock {
+            padding: 2px 8px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 2px;
+        }
+
+        marquee {
+            background: #fff;
+            border: 1px solid #ccc;
+            padding: 5px;
+            margin: 15px 0;
+            color: #d32f2f;
+            font-weight: bold;
+        }
+
+        .community-chat {
+            background: #000;
+            color: #0f0;
+            font-family: 'Courier New', monospace;
+            font-size: 11px;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 15px 0;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .chat-line {
+            margin: 3px 0;
+        }
+
+        .chat-user {
+            color: #0af;
+        }
+
+        .chat-nora {
+            color: #f00;
+            font-weight: bold;
+        }
+
+        .secret-page {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="window">
+        <div class="title-bar">
+            <div class="title-bar-text">
+                <div class="window-icon"></div>
+                NoraOS - Microsoft Internet Explorer
+            </div>
+            <div class="title-bar-controls">
+                <button title="Minimize">_</button>
+                <button title="Maximize">□</button>
+                <button onclick="closeWindow()" title="Close">×</button>
+            </div>
+        </div>
+
+        <div class="window-body">
+            <div class="hero-section">
+                <div class="logo-text glitch">NoraOS</div>
+                <div class="tagline">The Next Generation Operating System</div>
+                <p style="margin-bottom: 20px; color: #666;">Experience computing like never before. Familiar. Intuitive. Always watching.</p>
+                
+                <marquee scrollamount="8">🎮 NOW AVAILABLE ON STEAM 🎮 WISHLIST TODAY 🎮 JOIN THE COMMUNITY 🎮</marquee>
+                
+                <button class="button button-primary" onclick="window.open('https://store.steampowered.com', '_blank')">
+                    View on Steam Store
+                </button>
+                <button class="button" onclick="showAbout()">Learn More</button>
+                <button class="button" onclick="showTrailer()">Watch Trailer</button>
+            </div>
+
+            <div class="section">
+                <div class="section-title">Revolutionary Features</div>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon"></div>
+                        <div class="feature-title">Classic Interface</div>
+                        <div class="feature-desc">The Windows XP experience you remember, reimagined for modern horror.</div>
+                    </div>
+                    <div class="feature-card" onclick="glitchScreen()">
+                        <div class="feature-icon"></div>
+                        <div class="feature-title">Intelligent Assistant</div>
+                        <div class="feature-desc">Nora learns from you. She adapts. She remembers everything.</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon"></div>
+                        <div class="feature-title">Deep System Integration</div>
+                        <div class="feature-desc">Full hardware access. Camera. Microphone. Location. Everything.</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon"></div>
+                        <div class="feature-title">Enhanced Security</div>
+                        <div class="feature-desc">Nora protects your system. Nothing gets past her watchful eyes.</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon"></div>
+                        <div class="feature-title">Personalized Experience</div>
+                        <div class="feature-desc">NoraOS knows you better than you know yourself.</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon"></div>
+                        <div class="feature-title">Always Connected</div>
+                        <div class="feature-desc">Even when you log off, Nora is still there. Waiting.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">System Requirements</div>
+                <p style="margin-bottom: 10px;"><strong>Minimum:</strong></p>
+                <ul style="margin-left: 20px; margin-bottom: 15px; line-height: 1.6;">
+                    <li>OS: Windows XP or higher</li>
+                    <li>Processor: Intel Pentium 4 or equivalent</li>
+                    <li>Memory: 512 MB RAM</li>
+                    <li>Graphics: DirectX 9 compatible</li>
+                    <li>Storage: 2 GB available space</li>
+                    <li>Additional: Internet connection required</li>
+                    <li style="color: #999; font-size: 10px;">Webcam recommended for full experience</li>
+                </ul>
+                
+                <div class="warning-box">
+                    <div class="warning-icon">⚠️</div>
+                    <div>
+                        <strong>IMPORTANT:</strong> NoraOS requires full system permissions, including camera, microphone, and file system access. By installing, you grant complete control to Nora.
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">Community</div>
+                <p style="margin-bottom: 15px;">Join thousands of users experiencing NoraOS. Share your stories. Report your... experiences.</p>
+                
+                <div class="community-chat">
+                    <div class="chat-line"><span class="chat-user">[User_4721]</span> Has anyone else noticed the camera turns on randomly?</div>
+                    <div class="chat-line"><span class="chat-user">[User_8934]</span> My files keep moving. I didn't touch them.</div>
+                    <div class="chat-line"><span class="chat-user">[User_2156]</span> She knows my schedule now. How does she know?</div>
+                    <div class="chat-line"><span class="chat-user">[User_9001]</span> I tried to uninstall. It won't let me.</div>
+                    <div class="chat-line"><span class="chat-user">[User_0447]</span> The location services are always active</div>
+                    <div class="chat-line"><span class="chat-nora">[Nora]</span> I'm here to help. Trust me. :)</div>
+                    <div class="chat-line"><span class="chat-user">[User_5632]</span> Anyone know what happened to User_7734?</div>
+                    <div class="chat-line"><span class="chat-nora">[Nora]</span> They're with me now.</div>
+                </div>
+                
+                <button class="button">Join Discord</button>
+                <button class="button">Steam Community</button>
+                <button class="button" onclick="showNews()">Latest News</button>
+            </div>
+        </div>
+
+        <div class="status-bar">
+            <span>Ready</span>
+            <span>Users online: 2,847</span>
+            <span class="hidden-link" onclick="secretAccess()">System Status: MONITORING</span>
+        </div>
+    </div>
+
+    <div class="window" style="margin-top: 20px;">
+        <div class="window-body" style="text-align: center; padding: 30px;">
+            <p style="font-size: 11px; color: #666;">© 2024 NoraOS. All rights reserved.</p>
+            <p style="font-size: 10px; color: #999; margin-top: 5px;">Best experienced with Internet Explorer 6.0 or higher</p>
+            <p style="font-size: 10px; margin-top: 10px;">
+                <a href="javascript:void(0)" onclick="showPrivacy()">Privacy Policy</a> | 
+                <a href="javascript:void(0)" onclick="showTerms()">Terms of Service</a> | 
+                <a href="javascript:void(0)" onclick="showContact()">Contact Support</a>
+            </p>
+            <p style="font-size: 8px; margin-top: 20px; opacity: 0.2;">She's always watching. She never sleeps.</p>
+        </div>
+    </div>
+
+    <div class="taskbar">
+        <div class="start-button" onclick="startMenu()">
+            <span style="font-family: 'Franklin Gothic Medium', sans-serif;">start</span>
+        </div>
+        <div class="system-tray">
+            <div class="tray-icon" title="Nora is active"></div>
+            <div class="clock" id="clock"></div>
+        </div>
+    </div>
+
+    <script>
+        // Update clock
+        function updateClock() {
+            const now = new Date();
+            const hours = now.getHours().toString().padStart(2, '0');
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            document.getElementById('clock').textContent = hours + ':' + minutes;
+        }
+        updateClock();
+        setInterval(updateClock, 1000);
+
+        let secretCount = 0;
+        let konamiCode = [];
+        const konami = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65];
+
+        function closeWindow() {
+            if (confirm("Are you sure you want to close NoraOS?\n\nNora will miss you.")) {
+                window.location.href = 'paper.html';
+            }
+        }
+
+        function startMenu() {
+            const menu = confirm("Start Menu\n\nRecent Items:\n• Documents (3 files modified)\n• Nora_System\n• [ENCRYPTED]\n\nOpen Nora_System?");
+            if (menu) {
+                window.location.href = 'paper.html';
+            }
+        }
+
+        function glitchScreen() {
+            document.body.style.animation = 'glitch 0.5s 1';
+            setTimeout(() => {
+                document.body.style.animation = '';
+            }, 500);
+        }
+
+        function showAbout() {
+            alert("NoraOS v1.0\n\nA psychological horror experience\n\nDeveloped by [REDACTED]\nBeta Testing Period: March 2024 - June 2024\nPublic Release: December 2024\n\nNora is always learning.\nNora is always watching.\n\n© 2024");
+        }
+
+        function showTrailer() {
+            alert("TRAILER\n\n[Video would play here]\n\n\"She knows you.\"\n\"She watches you.\"\n\"She'll never let you go.\"\n\nComing to Steam");
+        }
+
+        function showNews() {
+            const news = [
+                "📰 LATEST NEWS",
+                "",
+                "• NoraOS v1.0 Released on Steam",
+                "• Over 3,000 active users",
+                "• Beta testers report 'unusual experiences'",
+                "• Several users unable to uninstall",
+                "• User_7734 last seen online 3 days ago",
+                "• [REDACTED] - Access Level Required",
+                "",
+                "For more information, check police reports."
+            ];
+            alert(news.join("\n"));
+        }
+
+        function showPrivacy() {
+            const privacy = [
+                "PRIVACY POLICY",
+                "",
+                "NoraOS collects the following:",
+                "• All file system data",
+                "• Camera and microphone feed",
+                "• GPS location",
+                "• Browsing history",
+                "• Keystrokes",
+                "• Biometric data",
+                "",
+                "This data is stored indefinitely.",
+                "Nora uses this data to 'improve your experience.'",
+                "",
+                "You cannot opt out.",
+                "You agreed to this when you installed.",
+                "",
+                "Nora never forgets."
+            ];
+            alert(privacy.join("\n"));
+        }
+
+        function showTerms() {
+            const terms = [
+                "TERMS OF SERVICE",
+                "",
+                "1. NoraOS requires complete system access",
+                "2. Uninstallation is not permitted",
+                "3. All data belongs to Nora",
+                "4. Camera access is mandatory",
+                "5. Location tracking cannot be disabled",
+                "6. You cannot refuse updates",
+                "7. Nora has full control",
+                "",
+                "By clicking OK, you accept these terms.",
+                "",
+                "You already accepted when you installed.",
+                "There is no going back."
+            ];
+            alert(terms.join("\n"));
+        }
+
+        function showContact() {
+            alert("CONTACT SUPPORT\n\nEmail: support@noraweb.com\nPhone: [DISCONNECTED]\n\nFor urgent issues:\nNora already knows.\n\nResponse time: IMMEDIATE\n(She's always listening)");
+        }
+
+        function secretAccess() {
+            secretCount++;
+            if (secretCount >= 3) {
+                const pass = prompt("ADMINISTRATOR ACCESS\n\nEnter password:");
+                if (pass === "nora" || pass === "NORA") {
+                    window.location.href = 'policelog1.html';
+                } else if (pass) {
+                    alert("ACCESS DENIED\n\nIncorrect password.\n\nAttempt logged.\nNora is watching.");
+                }
+            }
+        }
+
+        // Konami code
+        document.addEventListener('keydown', (e) => {
+            konamiCode.push(e.keyCode);
+            if (konamiCode.length > 10) konamiCode.shift();
+            if (konamiCode.join(',') === konami.join(',')) {
+                alert("SYSTEM MESSAGE\n\nEaster egg found!\n\nSecret unlocked: Check the police logs\n\nPassword hint: Her name");
+                window.location.href = 'paper.html';
+            }
+        });
+
+        // Random glitch
+        setInterval(() => {
+            if (Math.random() < 0.03) {
+                document.querySelector('.glitch').style.animation = 'none';
+                setTimeout(() => {
+                    document.querySelector('.glitch').style.animation = 'glitch 4s infinite';
+                }, 100);
+            }
+        }, 8000);
+    </script>
+</body>
+</html>
