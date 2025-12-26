@@ -1,0 +1,73 @@
+# Netlify Configuration for NoraOS Website
+
+[build]
+  # No build command needed - pure HTML/CSS/JS
+  publish = "."
+  
+[build.environment]
+  # No environment variables needed
+
+# Redirect rules
+[[redirects]]
+  from = "/home"
+  to = "/index.html"
+  status = 301
+
+[[redirects]]
+  from = "/docs"
+  to = "/paper.html"
+  status = 301
+
+[[redirects]]
+  from = "/police"
+  to = "/policelog1.html"
+  status = 301
+
+[[redirects]]
+  from = "/log"
+  to = "/betatester.html"
+  status = 301
+
+[[redirects]]
+  from = "/terminal"
+  to = "/terminal.html"
+  status = 301
+
+# Custom 404 page (optional - you can create a 404.html later)
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 404
+
+# Headers for security and performance
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "no-referrer-when-downgrade"
+    
+# Cache static assets
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=3600"
+
+# Enable forms (if you add contact forms later)
+[build.processing]
+  skip_processing = false
+
+[build.processing.css]
+  bundle = false
+  minify = false
+
+[build.processing.js]
+  bundle = false
+  minify = false
+
+[build.processing.html]
+  pretty_urls = true
+
+[build.processing.images]
+  compress = true
